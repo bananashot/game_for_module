@@ -6,7 +6,7 @@ from enum import IntEnum
 
 
 NUMBER_OF_LIVES = 10
-BEST_SCORE_LIMIT = 4
+BEST_SCORE_LIMIT = 10
 
 
 class AllowedAttacks(IntEnum):
