@@ -16,7 +16,7 @@ def play():
     while True:
         start = input('Type "start" to begin: ')
 
-        if start.strip().lower() == 'start' :
+        if start.strip().lower() == 'start':
             break
 
         print('Make sure you are entering a correct command.')
@@ -49,7 +49,7 @@ def play():
                     print(f'Your total score {player.score}')
                     GameOver.write_score(player, GameOver.check_score(), BEST_SCORE_LIMIT)
 
-                    raise GameOver from None
+                    raise GameOver
 
                 if command_option == 'help':
                     print(COMMANDS)
@@ -57,12 +57,12 @@ def play():
                 if command_option == 'continue':
                     break
 
-        except GameOver as game_over:
+        except GameOver:
 
             print(f'Your final score {player.score}')
             GameOver.write_score(player, GameOver.check_score(), BEST_SCORE_LIMIT)
 
-            raise game_over from None
+            raise GameOver
 
 
 if __name__ == "__main__":

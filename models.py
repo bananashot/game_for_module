@@ -68,23 +68,29 @@ class Player:
         """
         self.lives -= 1
 
-        if self.lives:
-            return self.lives
-        raise GameOver
+        if not self.lives:
+            raise GameOver
 
     @staticmethod
     def check_allowed_attacks(user_input):
 
+        allowed_attack_list = list(map(int, AllowedAttacks))
+
         try:
             user_input = int(user_input.strip())
 
-        except TypeError:
+            if int(user_input) in allowed_attack_list:
+                return user_input
+
+            print('This digit is not from allowed ones.')
+
+        except AttributeError:
             print('Make sure you are entering a digit.')
 
         except ValueError:
             print('Make sure you are entering a digit.')
 
-        return user_input
+        return 0
 
     def attack(self, enemy_obj):
 
@@ -93,14 +99,9 @@ class Player:
             user_input = self.check_allowed_attacks(
                 input('Choose attack option from set of: 1, 2, 3: ')
                 )
-            allowed_attack_list = list(map(int, AllowedAttacks))
 
-            if isinstance(user_input, int):
-
-                if user_input in allowed_attack_list:
-                    break
-
-                print('This digit is not from allowed ones.')
+            if user_input:
+                break
 
         player_attack = user_input
         battle_result = Player.fight(player_attack, enemy_obj.select_attack())
@@ -122,15 +123,10 @@ class Player:
 
             user_input = self.check_allowed_attacks(
                 input('Choose defence option from set of: 1, 2, 3: ')
-                )
-            allowed_attack_list = list(map(int, AllowedAttacks))
+            )
 
-            if isinstance(user_input, int):
-
-                if user_input in allowed_attack_list:
-                    break
-
-                print('This digit is not from allowed ones.')
+            if user_input:
+                break
 
         player_defence = user_input
         battle_result = Player.fight(enemy_obj.select_attack(), player_defence)
